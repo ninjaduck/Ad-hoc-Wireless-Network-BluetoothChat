@@ -84,6 +84,7 @@ public class BluetoothChat extends Activity {
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for the chat services
     private BluetoothChatService mChatService = null;
+    
 
     int flag = 0 ;
     
@@ -390,29 +391,36 @@ public class BluetoothChat extends Activity {
         	alert.setView(input);
 
         	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-        	public void onClick(DialogInterface dialog, int whichButton) {
-        	  String addr = input.getText().toString();
-        	  // Do something with value!
-        	  //findRoute(addr);
-        	  flag = 1;
-        	  }
+        		public void onClick(DialogInterface dialog, int whichButton) {
+        			String addr = input.getText().toString();
+        			Log.d("connect_to_address","pressed OK");
+        			// Do something with value!
+        			Intent serverIntent1 = null;
+        			serverIntent1 = new Intent(BluetoothChat.this, DevicesInRange.class);
+                    startActivityForResult(serverIntent1, REQUEST_CONNECT_TO_ADDRESS);
+        			
+        			//findRoute(addr);
+        			flag = 1;
+        		}
         	});
 
         	alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-        	  public void onClick(DialogInterface dialog, int whichButton) {
+        		public void onClick(DialogInterface dialog, int whichButton) {
         	    // Canceled.
-        	  }
+        		}
         	});
         	
         	
         	alert.show();
         	
-        	if(flag == 1)
+        	System.out.println("flag = " + flag);
+        	
+        	/*if(flag == 1)
         	{
         		Log.d("connect_to_address","pressed OK");
         		serverIntent = new Intent(this, DevicesInRange.class);
                 startActivityForResult(serverIntent, REQUEST_CONNECT_TO_ADDRESS);
-        	}
+        	}*/
         	return true;
 
         }
